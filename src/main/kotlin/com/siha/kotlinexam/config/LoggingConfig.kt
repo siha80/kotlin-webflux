@@ -13,15 +13,15 @@ import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Pointcut
 import org.aspectj.lang.reflect.MethodSignature
-import org.springframework.context.annotation.Configuration
 import org.springframework.core.KotlinDetector
+import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.*
 import java.lang.reflect.Method
 import java.util.*
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.intrinsics.*
 
-@Configuration
+@Component
 @Aspect
 class LoggingConfig {
     private val objectMapper = jacksonObjectMapper()
@@ -70,14 +70,14 @@ class LoggingConfig {
     }
 
     @Pointcut(
-            ("within(com.siha.kotlinexam..*) " +
+            "within(com.siha.kotlinexam..*) " +
                     "&& (" +
                     "within(@org.springframework.stereotype.Service *)" +
                     " || within(@org.springframework.stereotype.Component *)" +
                     ")" +
                     "&& (" +
                     "!within(com.siha.kotlinexam.handler..*)" +
-                    ")")
+                    ")"
     )
     fun services() {
     }
